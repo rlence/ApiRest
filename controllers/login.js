@@ -16,8 +16,9 @@ module.exports = (req, res) => {
        && data.users.find(user => user.email.toLowerCase() === email.toLowerCase()) //validando email de usuario
        && data.users.find(user => user.password === password))){//validando el password del usuario
 
-              res.status(201).json({message: 'El nombre de Usuario, o Email o Password son incorrectos'});
+             return res.status(201).json({message: 'El nombre de Usuario, o Email o Password son incorrectos'});
+       }else {
+              
+             return res.status(201).json( {message:"Aceso conseguido" ,userName, email, password});
        }
-
-       res.status(201).send("Acceso permitido");
 }

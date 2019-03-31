@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+       <title>Pagina de Registro</title>
+       <meta charset="UTF-8">
+</head>
+<style>
+       div {
+              margin: auto;
+              text-align: center;
+              margin-top: 10%;
+              background-color: #fac500;
+       }
+
+       label input {
+              margin: auto;
+
+       }
+
+       #enviar:hover {
+              background-color: blue;
+              color: white;
+
+       }
+</style>
+
+<body>
+       <div>
+              <form>
+                     <h2>Registro de usuario</h2>
+                     <br>
+                     <br>
+
+                     <label name="name">Nombre</label>
+                     <br>
+                     <input type="text" name="name" id="nombre">
+                     <br>
+                     <br>
+
+                     <label name="correo"> Email</label>
+                     <br>
+                     <input type="email" name="correo" id="email">
+                     <br>
+                     <br>
+
+                     <label name="password">Password</label>
+                     <br>
+                     <input type="text" name="password" id="password">
+                     <br>
+                     <br>
+
+                     <input type="submit" value="Enviar" id="enviar">
+              </form>
+       </div>
+       <script>
+
+              document.querySelector('form').addEventListener('submit', (ev) => {
+                     ev.preventDefault(); //impide que el navegagor recarge la pag
+
+                     // obteniendo los valores originales del formulario
+                     let nombre = ev.target.querySelector('#nombre').value
+                     let email = ev.target.querySelector('#email').value
+                     let password = ev.target.querySelector('#password').value
+
+                     //se usa el metodo fetch indicando la pag donde aras el rigstro y luego se pasa el metodo post y un objeto
+                     fetch('http://localhost:5000/registro', { method: 'POST', body: { nombre, email, password } })
+                            // una promesa
+                            .then(response => response.json())
+                            .then(data => {
+                                   console.log(data);
+
+                                   //pasando los valores a cero
+                                   ev.target.querySelector('#nombre').value = ''
+                                   ev.target.querySelector('#email').value = ''
+                                   ev.target.querySelector('#password').value = ''
+
+                                   //enviando un alert para indicar registro terminado
+                                   alert('registro completado');
+                            })
+              })
+       </script>
+</body>
+
+</html>
