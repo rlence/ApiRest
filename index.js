@@ -3,8 +3,9 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 
-//importando mis archivos de controllers
+//importando mis archivos de controllers 
 const registroUser = require('./controllers/registro.js');
+const loginUser = require('./controllers/login.js');
 
 
 
@@ -19,8 +20,10 @@ app.get('/', (req, res) => {//funcion para devolver
 
 app.post('/registro', registroUser); //registrando un nuevo usuario
 
-app.post('/login', (req, res) => {//funcion para logear usuarios y verificar datos
+app.post('/login', loginUser);//funcion para logear usuarios y verificar datos
 
+app.use((req, res, next) => {//middleware para el erro 404
+       res.status(404).json({message: "Error 404, Not Found"});
 });
 
 app.listen(3000, console.log('escuchando por el puerto 3000'));//escuchando en el puerto 3000 
